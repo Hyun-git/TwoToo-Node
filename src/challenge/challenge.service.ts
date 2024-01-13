@@ -161,15 +161,33 @@ export class ChallengeService {
       },
     );
   }
-	
-async updateDate(challengeNo:number, startDate: Date, endDate: Date): Promise<any> {
-	const challenge  = await this.challengeModel.findOneAndUpdate({
-		challengeNo
-	}, {$set: {startDate: startDate, endDate: endDate}},
-		{new: true});
-	
-	return challenge;
-}
+
+  async updateDate(
+    challengeNo: number,
+    startDate: Date,
+    endDate: Date,
+    isFinished: boolean,
+    user1CommitCnt: number,
+    user2CommitCnt: number,
+  ): Promise<any> {
+    const challenge = await this.challengeModel.findOneAndUpdate(
+      {
+        challengeNo,
+      },
+      {
+        $set: {
+          startDate: startDate,
+          endDate: endDate,
+          isFinished: isFinished,
+          user1CommitCnt,
+          user2CommitCnt,
+        },
+      },
+      { new: true },
+    );
+
+    return challenge;
+  }
 
   async finishChallenge(challengeNo: number): Promise<ChallengeDocument> {
     const challenge = await this.challengeModel.findOneAndUpdate(
@@ -200,7 +218,6 @@ async updateDate(challengeNo:number, startDate: Date, endDate: Date): Promise<an
   }: {
     userNo: number;
   }): Promise<ChallengeHistoryResDto[] | []> {
-
     const finishedChallenges = await this.challengeModel
       .find(
         {

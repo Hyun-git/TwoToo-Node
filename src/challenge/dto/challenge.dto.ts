@@ -424,18 +424,44 @@ export class challengeDateUpdateDto {
     type: String,
     format: 'date',
     default: new Date(),
-    description: '챌린지 시작일',
+    description: '2023-08-09T15:00:00.000Z',
   })
   startDate!: Date;
-	
-	@Type(() => Date)
+
+  @Type(() => Date)
   @IsDate()
   @IsNotEmpty()
   @ApiProperty({
     type: String,
     format: 'date',
     default: new Date(),
-    description: '챌린지 종료일',
+    description: '2024-02-03T14:59:59.999Z',
   })
   endDate!: Date;
+
+  @IsOptional()
+  @IsBoolean()
+  @ApiProperty({
+    type: Boolean,
+    description: '종료 여부',
+  })
+  isFinished: boolean;
+
+  @IsNumber()
+  @IsNotEmpty()
+  @ApiProperty({
+    example: 10,
+    description: 'user1(생성자) 현재 챌린지의 인증 횟수',
+    required: true,
+  })
+  user1CommitCnt: number;
+
+  @IsNumber()
+  @IsNotEmpty()
+  @ApiProperty({
+    example: 10,
+    description: 'user2(수락자) 현재 챌린지의 인증 횟수',
+    required: true,
+  })
+  user2CommitCnt: number;
 }
