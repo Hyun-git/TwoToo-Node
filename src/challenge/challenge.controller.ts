@@ -219,4 +219,17 @@ export class ChallengeController {
 
     return this.challengeSvc.finishChallenge(challengeNo);
   }
+	
+  @ApiBearerAuth()
+  @Patch(':challengeNo/changeDate')
+  @ApiOperation({ description: 'Date를 변경합니다.', summary: '챌린지 그만두기' })
+  @ApiResponse({ status: 200, type: Number })
+  async updateDate(
+    @Param('challengeNo') challengeNo: number,
+   @Body() data: challengeDateUpdateDto
+  ): Promise<any> {
+    const ret = await this.challengeSvc.updateDate(challengeNo, data.startDate, data.endDate);
+
+    return ret;
+  }
 }

@@ -415,3 +415,27 @@ export class ChallengeHistoryResDto {
   })
   user2Flower: FlowerType;
 }
+
+export class challengeDateUpdateDto {
+  @Type(() => Date)
+  @IsDate()
+  @IsNotEmpty()
+  @ApiProperty({
+    type: String,
+    format: 'date',
+    default: new Date(),
+    description: '챌린지 시작일',
+  })
+  startDate!: Date;
+	
+	@Type(() => Date)
+  @IsDate()
+  @IsNotEmpty()
+  @ApiProperty({
+    type: String,
+    format: 'date',
+    default: new Date(),
+    description: '챌린지 종료일',
+  })
+  endDate!: Date;
+}

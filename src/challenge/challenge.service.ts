@@ -161,6 +161,15 @@ export class ChallengeService {
       },
     );
   }
+	
+async updateDate(challengeNo:number, startDate: Date, endDate: Date): Promise<any> {
+	const challenge  = await this.challengeModel.findOneAndUpdate({
+		challengeNo
+	}, {$set: {startDate: startDate, endDate: endDate}},
+		{new: true});
+	
+	return challenge;
+}
 
   async finishChallenge(challengeNo: number): Promise<ChallengeDocument> {
     const challenge = await this.challengeModel.findOneAndUpdate(
